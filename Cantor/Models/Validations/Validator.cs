@@ -55,14 +55,10 @@ namespace Cantor.Models.Validations
 
         public Boolean checkPassword(string check)
         {
-            //method for validation
+
+            
             return true;
         }
 
-        protected Boolean registerValidation()
-        {
-
-            return false;
-        }
     }
 }

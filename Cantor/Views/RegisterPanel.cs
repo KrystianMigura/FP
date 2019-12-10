@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Cantor
 {
     public partial class RegisterPanel : Form
@@ -45,9 +46,20 @@ namespace Cantor
                 Models.DataBase.ConnectToDb DB = new Models.DataBase.ConnectToDb();
                 DB.connectToDb();
                 DB.checkTable();
-                String data = "'"+firstName+"','"+ lastName + "','" + nick + "','" + email + "','" + password + "','" + USD + "','" + EUR + "','" + CHF + "','" + RUB + "','" + CZK + "','" + GBP + "','" + PLN+"'";
 
-                DB.addUser(data, email);
+                System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
+                byte[] hash = md5.ComputeHash(inputBytes);
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    sb.Append(hash[i].ToString("X2"));
+                }
+
+                String data = "'"+firstName+"','"+ lastName + "','" + nick + "','" + email + "','" + sb + "','" + USD + "','" + EUR + "','" + CHF + "','" + RUB + "','" + CZK + "','" + GBP + "','" + PLN+"'";
+
+                DB.addUser(data);
             }
             else
             {

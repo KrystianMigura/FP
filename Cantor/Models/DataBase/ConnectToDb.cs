@@ -34,7 +34,7 @@ namespace Cantor.Models.DataBase
             }
         }
 
-        public void addUser(string data, string email)
+        public void addUser(string data)
         {
             String insert = "INSERT INTO Users(firstName, lastName, nick, email, password,USD,EUR,CHF,RUB,CZK,GBP,PLN) VALUES("+data+")";
 

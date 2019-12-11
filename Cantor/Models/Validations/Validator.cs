@@ -27,6 +27,7 @@ namespace Cantor.Models.Validations
             string[] stringValid = new string[] {"@"};
 
             Boolean test = check.Contains(stringValid[0]);
+            Console.WriteLine("TESTAAAAAAAAAAAAAAAAAA: " + test);
             if(test == true)
             {
                 return true;

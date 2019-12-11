@@ -15,8 +15,25 @@ namespace Cantor.Models.DataBase
         private string password = "qwertyuiop";
         private string database = "FutureProcessing";
         public MySqlConnection connector { get; set; }
+
         public ConnectToDb() { }
 
+        public string select(string email)
+        {
+            string query = "SELECT * FROM Users where email ='"+email+"'";
+            MySqlCommand command = new MySqlCommand(query, connector);
+            MySqlDataReader reader = command.ExecuteReader();
+            String val = "";
+
+            while (reader.Read())
+            {
+                val = reader["email"].ToString(); ;                                      
+            }
+
+            reader.Close();
+            return val;
+
+        }
         public void connectToDb()
         {
             try
@@ -40,21 +57,6 @@ namespace Cantor.Models.DataBase
 
             ConnectToDb go = new ConnectToDb();
             go.connectToDb();
-            String search = "SELECT * FROM Users" ;
-           // MySqlCommand sel = new MySqlCommand(search, connector);
-        
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter();
-            dataAdapter.SelectCommand = new MySqlCommand(search, connector);
- 
-            Console.WriteLine(dataAdapter);
-
-
-
-
-
-
-
-
 
             MySqlCommand cmd = new MySqlCommand(insert, connector);
             cmd.ExecuteNonQuery();

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CryptoMd5.cs" />
     <Compile Include="Models\DataBase\ConnectToDb.cs" />
     <Compile Include="Models\Head.cs" />
     <Compile Include="Models\Login.cs" />

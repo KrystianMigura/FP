@@ -14,13 +14,9 @@ namespace Cantor
     public partial class RegisterPanel : Form
     {
         
-
         public RegisterPanel()
         {
-            InitializeComponent();
-
-
-      
+            InitializeComponent();   
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,32 +36,16 @@ namespace Cantor
 
             Models.RegisterNewUser register = new Models.RegisterNewUser();
             Boolean status = register.catchValue(firstName, lastName, nick, email, password, USD, EUR, CHF, RUB, CZK, GBP, PLN);
-            
-            if(nick.Length > 0 && password.Length > 0)
+            if (status == true)
             {
-                Models.DataBase.ConnectToDb DB = new Models.DataBase.ConnectToDb();
-                DB.connectToDb();
-                DB.checkTable();
-
-                System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
-                byte[] hash = md5.ComputeHash(inputBytes);
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < hash.Length; i++)
-                {
-                    sb.Append(hash[i].ToString("X2"));
-                }
-
-                String data = "'"+firstName+"','"+ lastName + "','" + nick + "','" + email + "','" + sb + "','" + USD + "','" + EUR + "','" + CHF + "','" + RUB + "','" + CZK + "','" + GBP + "','" + PLN+"'";
-
-                DB.addUser(data);
+                register.finishRegister();
+                Close();
             }
             else
             {
-                Console.WriteLine("you dont write information abou tuser");
+                MessageBox.Show("Some value input to register is incorrect!.", "Problem in value", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            Console.WriteLine("OCZEKIWANA: " + status);
+                
         }
     }
 }

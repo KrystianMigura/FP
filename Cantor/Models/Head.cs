@@ -17,7 +17,6 @@ namespace Cantor.Models
        
         public void createPanel()
         {
-            CPanel = new ClientPanel();
             LPanel = new LoginPanel();
             RPanel = new RegisterPanel();
             LPanel.rPanel = RPanel;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cantor.Models.logButton
 {
-    class Buttons
+    class Buttons 
     {
         public Buttons() { }
 
@@ -14,23 +14,35 @@ namespace Cantor.Models.logButton
         {
             RegisterPanel rPanel = new RegisterPanel();
             rPanel.Show();
-
         }
 
-        public void loginButton(Login DB, string login, string password)
+        public Boolean loginButton(string login, string password)
         {
+            String hashPassword = "";
+            CryptoMd5 hash = new CryptoMd5();
             Models.Validations.Validator valid = new Validations.Validator();
+            
+            
+            hashPassword = hash.hash(password);
+ 
+               
+            Boolean lValid = valid.email(login);
+            if(lValid == true)
+            {
 
-            Boolean lValid = valid.checkLogin(login);
+                DataBase.ConnectToDb DB = new DataBase.ConnectToDb();
+                DB.connectToDb();
+                Boolean resolve = DB.logIn(login, hashPassword);
+                if(resolve == true)
+                {
+                    return true;
+                }
 
-            Boolean pValid = valid.checkPassword(password);
+            }
+            return false;
 
-            Console.WriteLine("login test: " + lValid);
+            
 
-            DB.openConnection();
-
-
-            DB.closeConnection();
         }
     }
 }

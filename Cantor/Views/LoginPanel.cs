@@ -23,7 +23,7 @@ namespace Cantor
             DB.mysqlConnector();
 
             DB.openConnection();
-
+            DB.checTable();
             DB.closeConnection();
         }
 
@@ -37,10 +37,21 @@ namespace Cantor
 
         private void loginButton(object sender, EventArgs e)
         {
+            
             String login = textBox1.Text;
             String password = textBox2.Text;
-            Models.logButton.Buttons register = new Models.logButton.Buttons();
-            register.loginButton(DB, login, password);
+            Models.logButton.Buttons loginToPanel = new Models.logButton.Buttons();
+            Boolean status = loginToPanel.loginButton(login, password);
+            if(status == true)
+            {
+                this.Hide();
+                ClientPanel clntPanel = new ClientPanel(login);
+                clntPanel.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wrong email or password. \n If you don't have account please register.","Information about Login.",MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

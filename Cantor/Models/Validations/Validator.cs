@@ -22,13 +22,13 @@ namespace Cantor.Models.Validations
             }
             return true;
         }
+
         public Boolean email(string check)
         {
             string[] stringValid = new string[] {"@"};
 
-            Boolean test = check.Contains(stringValid[0]);
-            Console.WriteLine("TESTAAAAAAAAAAAAAAAAAA: " + test);
-            if(test == true)
+            Boolean resolve = check.Contains(stringValid[0]);
+            if(resolve == true)
             {
                 return true;
             }
@@ -40,6 +40,7 @@ namespace Cantor.Models.Validations
 
         public Boolean checkLogin(string check)
         {
+            //regex?
             string[] stringValid =new string[] {"!","@","#","%","^","&","*","(",")","-","=","+","SELECT","INTO","ALIAS","select","into","alias"};
 
             for (int i = 0; i < stringValid.Length; i++)
@@ -50,13 +51,6 @@ namespace Cantor.Models.Validations
                     return false;
                 }
             }
-            
-            return true;
-        }
-
-        public Boolean checkPassword(string check)
-        {
-
             
             return true;
         }

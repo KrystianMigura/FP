@@ -26,5 +26,10 @@ namespace Cantor.Models
         {
             this.connector.closeConnectToDb();
         }
+
+        public void checTable()
+        {
+            this.connector.checkTable();
+        }
     }
 }

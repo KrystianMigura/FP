@@ -84,7 +84,7 @@ namespace Cantor.Models
                     CryptoMd5 crypto = new CryptoMd5();
                     String hashPassword = crypto.hash(__password);
 
-                    String data = "'" + __fName + "','" + __fName + "','" + __nick + "','" + __email + "','" + hashPassword + "','" + __USD + "','" + __EUR + "','" + __CHF + "','" + __RUB + "','" + __CZK + "','" + __GBP + "','" + __PLN + "'";
+                    String data = "'" + __fName + "','" + __sName + "','" + __nick + "','" + __email + "','" + hashPassword + "','" + __USD + "','" + __EUR + "','" + __CHF + "','" + __RUB + "','" + __CZK + "','" + __GBP + "','" + __PLN + "'";
 
                     DB.addUser(data);
                 }

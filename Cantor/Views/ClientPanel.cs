@@ -36,6 +36,9 @@ namespace Cantor
 
         public ClientPanel(string log)
         {
+            Controllers.CatchData cd = new Controllers.CatchData();
+            cd.tryCatchData();
+
             loggedData = log;     
             InitializeComponent();
             Models.ClntPanel.Controls fullControl = new Models.ClntPanel.Controls();
@@ -120,17 +123,9 @@ namespace Cantor
             label51.Text = RUB;
             label6.Text = PLN;
             label2.Text = "Logged in as " +firstName+" "+lastName;
+               
 
-
-                     String X = label40.Text;
-                     int nm;
-            int.TryParse(X, out nm);
-
-                         Console.WriteLine(nm + " TO " + nm * 100);
-                   
-
-            String lb40 = label40.Text;
-            label52.Text = multiplication(lb40, GBP);
+            label52.Text = multiplication(label40.Text, GBP);
             label53.Text = multiplication(label41.Text, EUR);
             label54.Text = multiplication(label42.Text, USD);
             label55.Text = multiplication(label43.Text, CZK);

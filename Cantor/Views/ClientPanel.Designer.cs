@@ -850,6 +850,7 @@
             this.button10.TabIndex = 26;
             this.button10.Text = "Buy";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // groupBox19
             // 
@@ -876,6 +877,7 @@
             this.button9.TabIndex = 23;
             this.button9.Text = "Buy";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // groupBox18
             // 
@@ -965,6 +967,7 @@
             this.button4.TabIndex = 13;
             this.button4.Text = "Buy";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -974,6 +977,7 @@
             this.button3.TabIndex = 12;
             this.button3.Text = "Buy";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -983,6 +987,7 @@
             this.button2.TabIndex = 11;
             this.button2.Text = "Buy";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 

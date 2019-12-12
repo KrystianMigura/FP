@@ -22,6 +22,8 @@ namespace Cantor.Models.DataBase
 
         public void userUpdateBuy(string email, float price, string howMuch, string currency)
         {
+            
+
            // string query = "UPDATE `users` SET `PLN`=`PLN`-500 WHERE `email` = 'nneo17@gmail.com';";
             string query = "UPDATE `users` SET `PLN`=`PLN`-" + (int)price + ",`"+currency+"`=`"+currency+"`+"+howMuch+" WHERE `email` = '"+email+"';";
             ConnectToDb go = new ConnectToDb();
@@ -31,6 +33,16 @@ namespace Cantor.Models.DataBase
             connector.Open();
             cmd1.ExecuteNonQuery();
             go.closeConnectToDb();
+            connector.Close();
+                            
+            string query1 = "UPDATE `cantorstock` SET `"+currency+"`=`"+currency+"`-"+howMuch+" where `id` = 1;";
+            ConnectToDb go1 = new ConnectToDb();
+            go1.connectToDb();
+
+            MySqlCommand cmd = new MySqlCommand(query1, connector);
+            connector.Open();
+            cmd.ExecuteNonQuery();
+            go1.closeConnectToDb();
         }
 
         public string selectCantorStock(string currency)

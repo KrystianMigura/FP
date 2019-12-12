@@ -136,12 +136,12 @@ namespace Cantor
             label2.Text = "Logged in as " + firstName + " " + lastName;
 
 
-            label52.Text = multiplication(label40.Text, GBP);
-            label53.Text = multiplication(label41.Text, EUR);
-            label54.Text = multiplication(label42.Text, USD);
-            label55.Text = multiplication(label43.Text, CZK);
-            label56.Text = multiplication(label44.Text, CHF);
-            label57.Text = multiplication(label45.Text, RUB);
+            label52.Text = multiplication(label40.Text, GBP,1);
+            label53.Text = multiplication(label41.Text, EUR,1);
+            label54.Text = multiplication(label42.Text, USD,1);
+            label55.Text = multiplication(label43.Text, CZK,100);
+            label56.Text = multiplication(label44.Text, CHF,10);
+            label57.Text = multiplication(label45.Text, RUB,100);
         }
 
 
@@ -224,7 +224,7 @@ namespace Cantor
 
         }
 
-        private string multiplication(String a, String b)
+        private string multiplication(String a, String b, int i)
         {
             float nm1;
             float nm2;
@@ -232,6 +232,16 @@ namespace Cantor
             float.TryParse(b, out nm2);
                     
             float z = nm1 * nm2;
+
+            if(i == 100)
+            {
+                z = z / 100;
+            }
+
+            if(i == 10)
+            {
+                z = z / 10;
+            }
             string resolve = z.ToString();
 
             return resolve;
@@ -260,6 +270,76 @@ namespace Cantor
             actualization();
             userUpdate(log1);
             textBox1.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Models.BuySell buy = new Models.BuySell();
+            string currency = label12.Text;
+            string unit = label24.Text;
+            string value = label35.Text;
+            string howMuch = textBox2.Text;
+            string money = label6.Text;
+            buy.buy(email, currency, unit, value, howMuch, money);
+            actualization();
+            userUpdate(log1);
+            textBox2.Text = "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Models.BuySell buy = new Models.BuySell();
+            string currency = label13.Text;
+            string unit = label25.Text;
+            string value = label36.Text;
+            string howMuch = textBox3.Text;
+            string money = label6.Text;
+            buy.buy(email, currency, unit, value, howMuch, money);
+            actualization();
+            userUpdate(log1);
+            textBox3.Text = "";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Models.BuySell buy = new Models.BuySell();
+            string currency = label14.Text;
+            string unit = label26.Text;
+            string value = label37.Text;
+            string howMuch = textBox4.Text;
+            string money = label6.Text;
+            buy.buy(email, currency, unit, value, howMuch, money);
+            actualization();
+            userUpdate(log1);
+            textBox4.Text = "";
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Models.BuySell buy = new Models.BuySell();
+            string currency = label15.Text;
+            string unit = label27.Text;
+            string value = label38.Text;
+            string howMuch = textBox5.Text;
+            string money = label6.Text;
+            buy.buy(email, currency, unit, value, howMuch, money);
+            actualization();
+            userUpdate(log1);
+            textBox5.Text = "";
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Models.BuySell buy = new Models.BuySell();
+            string currency = label16.Text;
+            string unit = label28.Text;
+            string value = label39.Text;
+            string howMuch = textBox6.Text;
+            string money = label6.Text;
+            buy.buy(email, currency, unit, value, howMuch, money);
+            actualization();
+            userUpdate(log1);
+            textBox6.Text = "";
         }
     }
 }

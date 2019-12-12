@@ -10,10 +10,14 @@ namespace Cantor.Models
     class BuySell
     {
         public BuySell( ) { }
+        public void sell()
+        {
+
+        }
+
 
         public void buy(String email, String currency, String unit, String value, String howMuch, String money)
         {
-            Console.WriteLine(email + " " + currency + " " + unit + " " + value + " " + howMuch +"GOOOG");
             int at = howMuch.IndexOf(",");
 
             Models.Validations.Validator valid = new Validations.Validator();
@@ -27,6 +31,9 @@ namespace Cantor.Models
             float.TryParse(unit, out nmunit);
             float.TryParse(value, out nmvalue);
             float.TryParse(money, out nmmoney);
+            int __howMuch;
+            int.TryParse(howMuch, out __howMuch);
+
 
             if (_howMuch == false || nm2 <= 0 || at != -1)
             {
@@ -39,7 +46,26 @@ namespace Cantor.Models
                     
                 float cost = nmunit * nm2 * nmvalue;
 
-                if(cost > nmmoney)
+                if (currency == "CZK")//100
+                {
+                    cost = cost / 100;
+                    __howMuch = __howMuch * 100;
+                }
+
+                if (currency == "CHF") //10
+                {
+                    cost = cost / 10;
+                    __howMuch = __howMuch * 10;
+                }
+
+                if (currency == "RUB")//100
+                {
+                    cost = cost / 100;
+                    __howMuch = __howMuch * 100;
+                }
+
+
+                if (cost > nmmoney)
                 {
                     MessageBox.Show("You don't have that much money", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -50,9 +76,9 @@ namespace Cantor.Models
                     DB.connectToDb();
                     String howMuchExist = DB.selectCantorStock(currency); // return value how much stay in cantor
 
-                    int __howMuch;
+             
                     int __howMuchExist;
-                    int.TryParse(howMuch, out __howMuch);
+                   
                     int.TryParse(howMuchExist, out __howMuchExist);
 
                     if (__howMuch <= __howMuchExist)
@@ -62,7 +88,7 @@ namespace Cantor.Models
                         {
                             //update user 
                             DB.closeConnectToDb();
-                            DB.userUpdateBuy(email,cost,howMuch,currency);
+                            DB.userUpdateBuy(email,cost,__howMuch.ToString(),currency);
  
                   
                         }

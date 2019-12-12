@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Xml;
 using Newtonsoft.Json.Linq;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 
-namespace Cantor.Controllers
+
+namespace Cantor.Controllers 
 {
-    class CatchData
+    class CatchData 
     {
        public CatchData() { }
 
@@ -18,10 +21,25 @@ namespace Cantor.Controllers
         {
             String xml = DownloadString(@"http://webtask.future-processing.com:8068/currencies");
             var obj = JObject.Parse(xml);
-            Console.WriteLine(obj["items"][0]["name"]); // catch value from link
-            Console.WriteLine(obj["publicationDate"]); // catch value from link!
-  
+ 
+            String insert = "";
+
+            for (int i = 0; i< 6; i++)
+            {
+                insert += "'"+ obj["items"][i]["purchasePrice"] + "','"+ obj["items"][i]["sellPrice"]+"',";
+            }
+
+            String correctInsert = "'" + obj["publicationDate"] + "'," + insert;
+
+            int size = correctInsert.Length-1;
+            correctInsert = correctInsert.Remove(size,1);
+
+            Models.DataBase.ConnectToDb DB = new Models.DataBase.ConnectToDb();
+            DB.connectToDb();
+            DB.addcurriences(correctInsert);
+            DB.closeConnectToDb();
         }
+        
 
         public static string DownloadString(string address)
         {
@@ -32,5 +50,7 @@ namespace Cantor.Controllers
             }
             return text;
         }
+
+
     }
 }

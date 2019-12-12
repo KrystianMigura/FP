@@ -17,6 +17,78 @@ namespace Cantor.Models.DataBase
         public MySqlConnection connector { get; set; }
 
         public ConnectToDb() { }
+        // UPDATE `users` SET `PLN`= 200 WHERE `email` = 'nneo17@gmail.com';
+        //UPDATE `users` SET `PLN`=`PLN`+500 WHERE `email` = 'nneo17@gmail.com';
+
+        public void userUpdateBuy(string email, float price, string howMuch, string currency)
+        {
+           // string query = "UPDATE `users` SET `PLN`=`PLN`-500 WHERE `email` = 'nneo17@gmail.com';";
+            string query = "UPDATE `users` SET `PLN`=`PLN`-" + (int)price + ",`"+currency+"`=`"+currency+"`+"+howMuch+" WHERE `email` = '"+email+"';";
+            ConnectToDb go = new ConnectToDb();
+            go.connectToDb();
+
+            MySqlCommand cmd1 = new MySqlCommand(query, connector);
+            connector.Open();
+            cmd1.ExecuteNonQuery();
+            go.closeConnectToDb();
+        }
+
+        public string selectCantorStock(string currency)
+        {
+            string query = "SELECT `"+currency+"` FROM `cantorstock` where id = 1 ; ";
+            MySqlCommand command = new MySqlCommand(query, connector);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                return reader[currency]+"";
+            }
+            return "0";
+            
+        }
+
+        public Array selectLast()
+        {
+            string query = "SELECT * FROM `cantorcurrencies` order by id DESC limit 1; ";
+
+            MySqlCommand command = new MySqlCommand(query, connector);
+            MySqlDataReader reader = command.ExecuteReader();
+            String val = "";
+            String[] x = new String[13];
+            while (reader.Read())
+            {
+
+                x[0] = reader["date"]+"";
+                x[1] = reader["USD_PURCASE"] + "";
+                x[2] = reader["USD_SELL"] + "";
+                x[3] = reader["EUR_PURCASE"] + "";
+                x[4] = reader["EUR_SELL"] + "";
+                x[5] = reader["CHF_PURCASE"] + "";
+                x[6] = reader["CHF_SELL"] + "";
+                x[7] = reader["RUB_PURCASE"] + "";
+                x[8] = reader["RUB_SELL"] + "";
+                x[9] = reader["CZK_PURCASE"] + "";
+                x[10] = reader["CZK_SELL"] + "";
+                x[11] = reader["GBP_PURCASE"] + "";
+                x[12] = reader["GBP_SELL"] + "";
+                
+            }
+            reader.Close();
+
+            return x;
+        }
+
+        public void addcurriences(String query)
+        {
+            String insert = "INSERT INTO cantorcurrencies(date, USD_PURCASE, USD_SELL, EUR_PURCASE, EUR_SELL, CHF_PURCASE, CHF_SELL, RUB_PURCASE, RUB_SELL, CZK_PURCASE, CZK_SELL, GBP_PURCASE, GBP_SELL) VALUES(" + query + ")";
+
+            ConnectToDb go = new ConnectToDb();
+            go.connectToDb();
+
+            MySqlCommand cmd = new MySqlCommand(insert, connector);
+            cmd.ExecuteNonQuery();
+            go.closeConnectToDb();
+        }
 
         public Array catchAllInformation(string email)
         {
@@ -41,8 +113,6 @@ namespace Cantor.Models.DataBase
                 x[10] = reader["PLN"].ToString();
             }
             reader.Close();
-
-            Console.WriteLine(x[0] +" "+ x[1]);
 
             return x;
         }
@@ -144,29 +214,29 @@ namespace Cantor.Models.DataBase
             string queryTable1 = string.Format(@"CREATE TABLE `{0}` (
                                 `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
                                 `date` text DEFAULT '',
-                                `USD_PURCASE` INT DEFAULT 0,
-                                `USD_SELL` INT DEFAULT 0,
-                                `EUR_PURCASE` INT DEFAULT 0,
-                                `EUR_SELL` INT DEFAULT 0,
-                                `CHF_PURCASE` INT DEFAULT 0,
-                                `CHF_SELL` INT DEFAULT 0,
-                                `RUB_PURCASE` INT DEFAULT 0,
-                                `RUB_SELL` INT DEFAULT 0,
-                                `CZK_PURCASE` INT DEFAULT 0,
-                                `CZK_SELL` INT DEFAULT 0,
-                                `GBP_PURCASE` INT DEFAULT 0,
-                                `GBP_SELL` INT DEFAULT 0,
+                                `USD_PURCASE` text DEFAULT '',
+                                `USD_SELL` text DEFAULT '',
+                                `EUR_PURCASE` text DEFAULT '',
+                                `EUR_SELL` text DEFAULT '',
+                                `CHF_PURCASE` text DEFAULT '',
+                                `CHF_SELL` text DEFAULT '',
+                                `RUB_PURCASE` text DEFAULT '',
+                                `RUB_SELL` text DEFAULT '',
+                                `CZK_PURCASE` text DEFAULT '',
+                                `CZK_SELL` text DEFAULT '',
+                                `GBP_PURCASE` text DEFAULT '',
+                                `GBP_SELL` text DEFAULT '',
                                 PRIMARY KEY (`id`))
                                 ENGINE = MyISAM AUTO_INCREMENT = 1 ;", "cantorcurrencies");
 
             string queryTable2 = string.Format(@"CREATE TABLE `{0}` (
                                 `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-                                `USD` INT  DEFAULT 0,
-                                `EUR` INT  DEFAULT 0,
-                                `CHF` INT  DEFAULT 0,
-                                `RUB` INT  DEFAULT 0,
-                                `CZK` INT  DEFAULT 0,
-                                `GBP` INT  DEFAULT 0,                     
+                                `USD` INT DEFAULT '20000',
+                                `EUR` INT DEFAULT '20000',
+                                `CHF` INT DEFAULT '20000',
+                                `RUB` INT DEFAULT '20000',
+                                `CZK` INT DEFAULT '20000',
+                                `GBP` INT DEFAULT '20000',                     
                                 PRIMARY KEY (`id`))
                                 ENGINE = MyISAM AUTO_INCREMENT = 1 ;", "cantorstock");
 
@@ -195,6 +265,12 @@ namespace Cantor.Models.DataBase
             try
             {
                 createTable2.ExecuteNonQuery();
+
+                String insert = "INSERT INTO cantorstock(USD,EUR,CHF,RUB,CZK,GBP) VALUES('20000','20000','20000','20000','20000','20000')";         
+
+                MySqlCommand cmd = new MySqlCommand(insert, connector);
+                cmd.ExecuteNonQuery();
+                go.closeConnectToDb();
             }
             catch (MySqlException err)
             {

@@ -50,7 +50,5 @@ namespace Cantor.Controllers
             }
             return text;
         }
-
-
     }
 }

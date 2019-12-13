@@ -17,8 +17,6 @@ namespace Cantor.Models.DataBase
         public MySqlConnection connector { get; set; }
 
         public ConnectToDb() { }
-        // UPDATE `users` SET `PLN`= 200 WHERE `email` = 'nneo17@gmail.com';
-        //UPDATE `users` SET `PLN`=`PLN`+500 WHERE `email` = 'nneo17@gmail.com';
 
         public void userUpdateSell(string email, float profit, string howMuch, string currency)
         {
@@ -44,9 +42,6 @@ namespace Cantor.Models.DataBase
 
         public void userUpdateBuy(string email, float price, string howMuch, string currency)
         {
-            
-
-           // string query = "UPDATE `users` SET `PLN`=`PLN`-500 WHERE `email` = 'nneo17@gmail.com';";
             string query = "UPDATE `users` SET `PLN`=`PLN`-" + (int)price + ",`"+currency+"`=`"+currency+"`+"+howMuch+" WHERE `email` = '"+email+"';";
             ConnectToDb go = new ConnectToDb();
             go.connectToDb();
@@ -151,7 +146,6 @@ namespace Cantor.Models.DataBase
             return x;
         }
 
-
         public string select(string email)
         {
             string query = "SELECT * FROM Users where email ='"+email+"'";
@@ -166,15 +160,11 @@ namespace Cantor.Models.DataBase
                 val = reader["email"].ToString(); ;                                      
             }
             reader.Close();
-            return val;
-           
-           
+            return val;                    
         }
 
         public Boolean logIn(string email, string password)
         {
-
-
             string query = "SELECT * FROM Users where email ='" + email + "' and password = '"+password+"'";
 
             MySqlCommand command = new MySqlCommand(query, connector);
@@ -186,7 +176,6 @@ namespace Cantor.Models.DataBase
                 val = reader["email"].ToString() + "-" + reader["password"].ToString(); 
             }
             reader.Close();
-            Console.WriteLine(val +" wartosc z bazy");
 
             if(val == (email + "-" + password))
             {

@@ -151,10 +151,8 @@ namespace Cantor.Models
                         DialogResult dialogResult = MessageBox.Show("Do you want to make this transaction? \n Cost: " + cost , "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (dialogResult == DialogResult.Yes)
                         {
-                            //update user 
                             DB.closeConnectToDb();
                             DB.userUpdateBuy(email,cost,__howMuch.ToString(),currency);
- 
                   
                         }
                     }
@@ -162,15 +160,8 @@ namespace Cantor.Models
                     {
                         MessageBox.Show("Cantor have only: " +__howMuchExist +" "+ currency, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-
-
-
                 }
-
-                Console.WriteLine(cost);
             }
-
         }
-
     }
 }

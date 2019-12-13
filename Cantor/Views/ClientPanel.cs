@@ -231,17 +231,18 @@ namespace Cantor
             float.TryParse(a, out nm1);
             float.TryParse(b, out nm2);
                     
-            float z = nm1 * nm2;
+            if(i == 10)
+            {
+                nm2 = nm2 / 10;
+            }
 
             if(i == 100)
             {
-                z = z / 100;
+                nm2 = nm2 / 100;
             }
 
-            if(i == 10)
-            {
-                z = z / 10;
-            }
+            float z = nm1 * nm2;
+
             string resolve = z.ToString();
 
             return resolve;
@@ -340,6 +341,102 @@ namespace Cantor
             actualization();
             userUpdate(log1);
             textBox6.Text = "";
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string currency = label17.Text;
+            string unitPrice = label40.Text;
+            string amount = label46.Text;
+            string quantity = textBox7.Text;
+            string money = label6.Text;
+
+            Models.BuySell sell = new Models.BuySell();
+            sell.sell(currency, unitPrice, amount, quantity, email, money);
+
+            actualization();
+            userUpdate(log1);
+            textBox7.Text = "";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string currency = label18.Text;
+            string unitPrice = label41.Text;
+            string amount = label47.Text;
+            string quantity = textBox8.Text;
+            string money = label6.Text;
+
+            Models.BuySell sell = new Models.BuySell();
+            sell.sell(currency, unitPrice, amount, quantity, email, money);
+
+            actualization();
+            userUpdate(log1);
+            textBox8.Text = "";
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string currency = label19.Text;
+            string unitPrice = label42.Text;
+            string amount = label48.Text;
+            string quantity = textBox9.Text;
+            string money = label6.Text;
+
+            Models.BuySell sell = new Models.BuySell();
+            sell.sell(currency, unitPrice, amount, quantity, email, money);
+
+            actualization();
+            userUpdate(log1);
+            textBox9.Text = "";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string currency = label20.Text;
+            string unitPrice = label43.Text;
+            string amount = label49.Text;
+            string quantity = textBox10.Text;
+            string money = label6.Text;
+
+            Models.BuySell sell = new Models.BuySell();
+            sell.sell(currency, unitPrice, amount, quantity, email, money);
+
+            actualization();
+            userUpdate(log1);
+            textBox10.Text = "";
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string currency = label21.Text;
+            string unitPrice = label44.Text;
+            string amount = label50.Text;
+            string quantity = textBox11.Text;
+            string money = label6.Text;
+
+            Models.BuySell sell = new Models.BuySell();
+            sell.sell(currency, unitPrice, amount, quantity, email, money);
+
+            actualization();
+            userUpdate(log1);
+            textBox11.Text = "";
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            string currency = label22.Text;
+            string unitPrice = label45.Text;
+            string amount = label51.Text;
+            string quantity = textBox12.Text;
+            string money = label6.Text;
+
+            Models.BuySell sell = new Models.BuySell();
+            sell.sell(currency, unitPrice, amount, quantity, email, money);
+
+            actualization();
+            userUpdate(log1);
+            textBox12.Text = "";
         }
     }
 }

@@ -10,9 +10,75 @@ namespace Cantor.Models
     class BuySell
     {
         public BuySell( ) { }
-        public void sell()
-        {
 
+        public void sell(String currency, String unitPrice, String amount, String quentity, String email, String money)
+        {
+            int at = quentity.IndexOf(",");
+            Models.Validations.Validator valid = new Validations.Validator();
+            Boolean _quentity = valid.currency(quentity);
+
+            float funitPrice;
+            float famount;
+            float fquentity;
+            float fmoney;
+            float.TryParse(unitPrice, out funitPrice);
+            float.TryParse(amount, out famount);
+            float.TryParse(quentity, out fquentity);
+            float.TryParse(money, out fmoney);
+            int howMuch;
+
+            if(_quentity == false || fquentity <=0 || at != -1)
+            {
+                MessageBox.Show("Wrong value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if(_quentity != false && fquentity > 0 && at == -1)
+            {
+                float profit = fquentity * funitPrice;
+                howMuch = (int)fquentity;
+
+                if (currency == "CZK")//100
+                {
+                    howMuch = (int)fquentity ;
+                    profit = profit / 100;
+                }
+
+                if (currency == "CHF") //10
+                {
+
+                    howMuch = (int)fquentity ;
+                    profit = profit / 10;
+                }
+
+                if (currency == "RUB")//100
+                {
+                    howMuch = (int)fquentity ;
+                    profit = profit / 100;
+                }
+            
+            
+                if(famount < howMuch)
+                {
+                    MessageBox.Show("You don't have that much resources", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                }
+
+                if (famount >= howMuch)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Do you want to make this transaction? \n Profit: " + profit, "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Models.DataBase.ConnectToDb DB = new Models.DataBase.ConnectToDb();
+                        DB.connectToDb();
+                        //update user 
+                        DB.closeConnectToDb();
+                        DB.userUpdateSell(email, profit, howMuch.ToString(), currency);
+
+
+                    }
+                }
+            }
+          
         }
 
 
@@ -42,7 +108,6 @@ namespace Cantor.Models
 
             if (_howMuch != false && nm2 > 0 && at == -1)
             {
-                Console.WriteLine(nmunit + " " + nm2 + " " + nmvalue);
                     
                 float cost = nmunit * nm2 * nmvalue;
 

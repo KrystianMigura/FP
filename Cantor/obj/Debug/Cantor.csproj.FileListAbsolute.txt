@@ -1,4 +1,3 @@
-C:\Users\Krystian\source\repos\Cantor\Cantor\obj\Debug\Cantor.csprojAssemblyReference.cache
 C:\Users\Krystian\source\repos\Cantor\Cantor\obj\Debug\Cantor.ClientPanel.resources
 C:\Users\Krystian\source\repos\Cantor\Cantor\obj\Debug\Cantor.LoginPanel.resources
 C:\Users\Krystian\source\repos\Cantor\Cantor\obj\Debug\Cantor.Properties.Resources.resources

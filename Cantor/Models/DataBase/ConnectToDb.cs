@@ -20,6 +20,28 @@ namespace Cantor.Models.DataBase
         // UPDATE `users` SET `PLN`= 200 WHERE `email` = 'nneo17@gmail.com';
         //UPDATE `users` SET `PLN`=`PLN`+500 WHERE `email` = 'nneo17@gmail.com';
 
+        public void userUpdateSell(string email, float profit, string howMuch, string currency)
+        {
+            string query = "UPDATE `users` SET `PLN`=`PLN`+" + (int)profit + ",`" + currency + "`=`" + currency + "`-" + howMuch + " WHERE `email` = '" + email + "';";
+            ConnectToDb go = new ConnectToDb();
+            go.connectToDb();
+
+            MySqlCommand cmd1 = new MySqlCommand(query, connector);
+            connector.Open();
+            cmd1.ExecuteNonQuery();
+            go.closeConnectToDb();
+            connector.Close();
+
+            string query1 = "UPDATE `cantorstock` SET `" + currency + "`=`" + currency + "`+" + howMuch + " where `id` = 1;";
+            ConnectToDb go1 = new ConnectToDb();
+            go1.connectToDb();
+
+            MySqlCommand cmd = new MySqlCommand(query1, connector);
+            connector.Open();
+            cmd.ExecuteNonQuery();
+            go1.closeConnectToDb();
+        }
+
         public void userUpdateBuy(string email, float price, string howMuch, string currency)
         {
             
